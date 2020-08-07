@@ -22,7 +22,7 @@ var tbody = document.querySelector('#coffees');
 var submitButton = document.querySelector('#submit');
 var roastSelection = document.querySelector('#roast-selection');
 
-
+//creates a single table row
 function renderCoffee(coffee) {
     var html = '<div>';
     // html += '' + coffee.id + '';
@@ -32,18 +32,20 @@ function renderCoffee(coffee) {
     return html;
 }
 
+//iterates through the coffees array to populate multiple rows
 function renderCoffees(coffees) {
     var html = '';
-    for(var i = coffees.length -1; i>=0; i--) {
+    for(var i = coffees.length - 1; i>=0; i--) {
         html += renderCoffee(coffees[i]);
     }
     return html;
 }
+
 
     var tbody = document.querySelector('#coffees');
     var search = document.querySelector("#coffee");
     var submitButton = document.querySelector('#submit');
     var roastSelection = document.querySelector('#roast-selection');
 
-console.log(coffees);
-
+//renders the string from renderCoffees
+tbody.innerHTML = renderCoffees(coffees);
