@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
-    <link rel="stylesheet" href="style.css">
+    <title>Coffee!</title>
+    <link rel="stylesheet" href="style.css"><!--references pre-created style sheet-->
 </head>
 <body>
     <h1>Coffee!</h1>
@@ -18,7 +18,21 @@
         <input id="submit" type="submit" />
     </form>
 
-    <table>
+    <div>
+        <h2><!--coffee name goes here-->id="coffees"<script src="main.js"></script></h2>
+        <p><!--type of roast goes here--></p>
+    </div>
+
+</body>
+</html>
+
+<!-- Tables are a little old school, you need to refactor the code so that each
+    coffee is displayed in a `div` that contains a heading displaying the coffee
+    name, and the type of roast in a paragraph. Don't display the ids, these are
+    only for our application's internal use-->
+
+<!--Removed original table code
+<table>
         <thead>
             <tr>
                 <th>ID</th>
@@ -27,8 +41,6 @@
             </tr>
         </thead>
         <tbody id="coffees"></tbody>
+            <script src="main.js"></script>
     </table>
-
-    <script src="main.js"></script>
-</body>
-</html>
+-->
