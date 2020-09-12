@@ -18,6 +18,8 @@ let coffees = [
     {id: 14, name: 'French', roast: 'dark'},
 ];
 
+let sortedCoffees=coffees.reverse();
+
 let tbody = document.querySelector('#coffees');
 //returns html element with id #coffees
 //returns a div with a table
@@ -47,76 +49,51 @@ function renderCoffee(coffee) {
 }
 
 
-let lightCoffee = [];
-for (let i =0;i<coffees.length;i++) {
-    if (coffees[i].roast === 'light') {
-        lightCoffee.push(coffees[i]);
-    }
-}
-let mediumCoffee = [];
-for (let i =0;i<coffees.length;i++) {
-    if (coffees[i].roast === 'medium') {
-        mediumCoffee.push(coffees[i]);
-    }
-}
-let darkCoffee = [];
-for (let i =0;i<coffees.length;i++) {
-    if (coffees[i].roast === 'dark') {
-        darkCoffee.push(coffees[i]);
-    }
-}
 //iterates through the coffees array to populate multiple rows of coffees
 function renderCoffees(coffees) {
     //this is what returns the appropriate content for the coffee list
     //it doesn't print/show the html
-
-    coffees.reverse();//sorts coffees from top
     let html = '';
-    if(false){
-        }else{
-        for (let i = coffees.length - 1; i >= 0; i--) {
-            html += renderCoffee(coffees[i]);
-        }
-        return html;
+    for (let i = coffees.length - 1; i >= 0; i--) {
+        html += renderCoffee(coffees[i]);
     }
+    return html;
 }
-/*
-//functional code to populate coffee lists without separating by roast
-for (let i = coffees.length - 1; i >= 0; i--) {
-html += renderCoffee(coffees[i]);
-}
-return html;
-}
-*/
-/*
-    //code block is broken; should return list of coffees based on selected roast
-    if (submitButton.toString() === 'submit') {
-        for (let i = coffees.length - 1; i >= 0; i--) {
-            if (roastSelection.toString() === 'all') {
-                html += renderCoffee(coffees[i]);
-            } else if (roastSelection.toString() === 'light') {
-                if (coffees[i].roast === 'light') {
-                    html += renderCoffee(coffees[i]);
-                }
-            } else if (roastSelection.toString() === 'medium') {
-                if (coffees[i].roast === 'medium') {
-                    html += renderCoffee(coffees[i]);
-                }
-            } else if (roastSelection.toString() === 'dark') {
-                if (coffees[i].roast === 'dark') {
-                    html += renderCoffee(coffees[i]);
-                }
-            }
-        }
-
-    }
-        return html;
-        }
-        */
 
 //renders the string from renderCoffees
 //this is what actually makes the coffee list show up
 tbody.innerHTML = renderCoffees(coffees);
+
+function updateCoffees(e) {
+    e.preventDefault(); // don't submit the form, we just want to update the data
+    let selectedRoast = roastSelection.value;//retrieve roast from html element retrieved by document.queryselector above
+    let filteredCoffees = [];//creates a new array for updated listing
+    coffees.forEach(function (coffee) {
+        if (coffee.roast === selectedRoast || selectedRoast === "all") {
+            filteredCoffees.push(coffee);
+        }
+    });
+    //if the roast matches the selected roast, or all has been selected.
+    //push the coffee element into the new filtered coffee list
+    tbody.innerHTML = renderCoffees(filteredCoffees);
+}
+
+//looking for roast selection in dropdown to change what is showed
+roastSelection.addEventListener('change', updateCoffees);
+
+
+let searchQuery = function (e) {
+    let html = "";
+    for (let i = 0; i < sortedCoffees.length; i++) {
+        if (sortedCoffees[i].name.toLowerCase().includes(coffeeSearch.value.toLowerCase()) || (sortedCoffees[i].roast.toLowerCase().includes(coffeeSearch.value.toLowerCase()))) {
+            html = html + renderCoffee(sortedCoffees[i]);
+        }
+        //if the search includes any of the names from the coffee lists, set them = the html
+        tbody.innerHTML = html;
+    }
+};
+//listen for typing, which allows search box updating
+coffeeSearch.addEventListener("keydown", searchQuery);
 
 // var tbody = document.querySelector('#coffees');
 // var search = document.querySelector("#coffee");
